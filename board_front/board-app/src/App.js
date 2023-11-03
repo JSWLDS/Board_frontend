@@ -1,28 +1,30 @@
 //import logo from './logo.svg';
-// #1
+
 
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'; 
 import ListBoardComponent from './components/ListBoardComponent';
 import CreateBoardComponent from './components/CreateBoardComponent';
-import Main from './components//Main';
-import HeaderComponent from './components/HeaderComponent';
-import FooterComponent from './components/FooterComponent';
+import Main from './components/Main';
+import HeaderComponent from './components/static/HeaderComponent';
+import FooterComponent from './components/static/FooterComponent';
+import ReadBoardComponent from './components/ReadBoardComponent';
 
-// #2
+
 function App() {
   return (
     <div>
-      <Router>            {/* #3 */}
-        <HeaderComponent/>  {/* #4 */}
+      <Router>           
+        <HeaderComponent/> 
         <div className='container'>
-          <Routes>        {/* #5 */}
+          <Routes>       
             <Route path='/'  element = {<Main />}></Route>
             <Route path='/list-board'  element = {<ListBoardComponent />}></Route>
             <Route path='/create-board'  element = {<CreateBoardComponent />}></Route>
+            <Route path='/read-board/:id'  element = {<ReadBoardComponent />}></Route>
           </Routes>
         </div>
-        <FooterComponent />   {/* #6 */}
+        <FooterComponent /> 
       </Router>
     </div>
   );

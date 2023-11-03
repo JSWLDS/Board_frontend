@@ -10,8 +10,8 @@ const root = createRoot(document.getElementById('root'));
 function Index(){
   return (
     <React.StrictMode>
-    <App />
-  </React.StrictMode>
+      <App />
+    </React.StrictMode>
   );
 }
 

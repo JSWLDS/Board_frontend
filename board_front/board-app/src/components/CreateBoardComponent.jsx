@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import BoardService from '../Service/BoardService';
-
+import { useNavigate } from 'react-router-dom';
 function CreateBoardComponent(props) {
+    const navigate = useNavigate();
     const [state, setState] = useState({
-        type: '',
+        type: 1,
         title: '',
         contents: '',
         memberNo: ''
@@ -28,22 +29,22 @@ function CreateBoardComponent(props) {
     const createBoard = (event) => {
         event.preventDefault();
         let board = {
-            type: state.type,
+            type: Number(state.type),
             title: state.title,
             contents: state.contents,
             memberNo: state.memberNo
-        };
+        };console.log(board)
         BoardService.createBoard(board).then((res) => {
-            props.history.push('/board');
+            cancel();
         });
     };
 
     const cancel = () => {
-        props.history.push('/board');
+        navigate('/list-board');
     };
 
     return (
-        <div>
+        <div className='listDivWrrap'>
             <div className="container">
                 <div className="row">
                     <div className="card col-md-6 offset-md-3 offset-md-3">
@@ -59,8 +60,8 @@ function CreateBoardComponent(props) {
                                         value={state.type}
                                         onChange={changeTypeHandler}
                                     >
-                                        <option value="1">자유게시판</option>
-                                        <option value="2">질문과 답변</option>
+                                        <option value="1">자유 게시판</option>
+                                        <option value="2">질문과 답변 게시판</option>
                                     </select>
                                 </div>
                                 <div className="form-group">
@@ -79,7 +80,7 @@ function CreateBoardComponent(props) {
                                     <textarea
                                         placeholder="contents"
                                         name="contents"
-                                        className="form-control"
+                                        className="form-control contents"
                                         value={state.contents}
                                         onChange={changeContentsHandler}
                                     />

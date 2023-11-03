@@ -12,6 +12,10 @@ class BoardService {
     createBoard(board) {
         return axios.post(BOARD_API_BASE_URL, board);
     }
+    getOneBoard(id){
+        console.log(id+" getOneBoard입니다")
+        return axios.get(BOARD_API_BASE_URL + '/' + id);
+    }
 }
 
 const boardService =  new BoardService();
