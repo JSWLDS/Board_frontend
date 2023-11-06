@@ -21,7 +21,7 @@ function App() {
             <Route path='/'  element = {<Main />}></Route>
             <Route path='/list-board'  element = {<ListBoardComponent />}></Route>
             <Route path='/create-board'  element = {<CreateBoardComponent />}></Route>
-            <Route path='/read-board/:id'  element = {<ReadBoardComponent />}></Route>
+            <Route path='/read-board/:boardId'  element = {<ReadBoardComponent />}></Route>
           </Routes>
         </div>
         <FooterComponent /> 

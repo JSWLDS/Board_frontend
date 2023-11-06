@@ -15,8 +15,9 @@ function ListBoardComponent() {
     function createBoard(){
         navigate('/create-board');
     } 
-    function readBoard(id){
-        navigate(`/read-board/${id}`);
+    function readBoard(boardId){
+        BoardService.updateCount(boardId)
+        navigate(`/read-board/${boardId}`);
     }
 
     return (
@@ -37,10 +38,10 @@ function ListBoardComponent() {
                     </thead>
                     <tbody>
                         {boards.map(board => (
-                            <tr key={board.id}>
-                                <td>{board.id}</td>
-                                <td><a onClick={()=> {readBoard(board.id)}}>{board.title}</a></td>
-                                <td>{board.memberNo}</td>
+                            <tr key={board.boardId}>
+                                <td>{board.boardId}</td>
+                                <td onClick={()=> {readBoard(board.boardId)}}>{board.title}</td>
+                                <td>{board.memberId}</td>
                                 <td>{board.createdTime}</td>
                                 <td>{board.updatedTime}</td>
                                 <td>{board.counts}</td>

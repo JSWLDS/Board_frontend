@@ -4,22 +4,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 function ReadBoardComponent() {
 
-    const {id} = useParams();
+    const {boardId} = useParams();
     const navigate = useNavigate(); 
 
     const [state, setState] = useState({
-        id: id,
         board: {}
         });
 
 
     useEffect(() => {
         
-        BoardService.getOneBoard(id).then( (res) => {
+        BoardService.getOneBoard(boardId).then( (res) => {
             setState({board: res.data});
         });
 
-    }, [id]);
+    }, [boardId]);
 
 
     function returnBoardType(typeNo){
@@ -73,7 +72,7 @@ function ReadBoardComponent() {
 
                         <div className = "row">
                             <label> MemberNo  </label>: 
-                            {state.board.memberNo}
+                            {state.board.memberId}
                         </div>
 
                         {returnDate(state.board.createdTime, state.board.updatedTime) }

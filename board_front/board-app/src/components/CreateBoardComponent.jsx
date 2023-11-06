@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate } from 'react-router-dom';
-function CreateBoardComponent(props) {
+function CreateBoardComponent() {
     const navigate = useNavigate();
     const [state, setState] = useState({
         type: 1,
         title: '',
         contents: '',
-        memberNo: ''
+        memberId: ''
     });
 
     const changeTypeHandler = (event) => {
@@ -23,7 +23,7 @@ function CreateBoardComponent(props) {
     };
 
     const changeMemberNoHandler = (event) => {
-        setState({ ...state, memberNo: event.target.value });
+        setState({ ...state, memberId: event.target.value });
     };
 
     const createBoard = (event) => {
@@ -32,7 +32,7 @@ function CreateBoardComponent(props) {
             type: Number(state.type),
             title: state.title,
             contents: state.contents,
-            memberNo: state.memberNo
+            memberId: state.memberId
         };console.log(board)
         BoardService.createBoard(board).then((res) => {
             cancel();
@@ -88,10 +88,10 @@ function CreateBoardComponent(props) {
                                 <div className="form-group">
                                     <label> MemberNo </label>
                                     <input
-                                        placeholder="memberNo"
-                                        name="memberNo"
+                                        placeholder="member_if"
+                                        name="member_id"
                                         className="form-control"
-                                        value={state.memberNo}
+                                        value={state.memberId}
                                         onChange={changeMemberNoHandler}
                                     />
                                 </div>
