@@ -44,10 +44,10 @@ function CreateBoardComponent() {
     };
 
     return (
-        <div className='listDivWrrap'>
+        <div className='listDivWrrap c-wwarp'>
             <div className="container">
-                <div className="row">
-                    <div className="card col-md-6 offset-md-3 offset-md-3">
+                <div className="row create-board-wrrap">
+                    <div className="card col-md-6 offset-md-3 offset-md-3 c-wrrap1">
                         <h3 className="text-center">새글을 작성해주세요</h3>
                         <div className="card-body">
                             <form>

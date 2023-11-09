@@ -55,7 +55,7 @@ function ReadBoardComponent() {
     }
 
     return (
-        <div>
+        <div className="read-board-wrrap">
             <div className = "card col-md-6 offset-md-3">
                 <h3 className ="text-center"> Read Detail</h3>
                 <div className = "card-body">
@@ -66,7 +66,7 @@ function ReadBoardComponent() {
                         </div>
 
                         <div className = "row">
-                            <label> Contents </label> : <br></br>
+                            <label> Contents </label> 
                             <textarea value={state.board.contents} readOnly/> 
                         </div >
 

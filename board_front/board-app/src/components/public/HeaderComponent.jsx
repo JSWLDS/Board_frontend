@@ -12,7 +12,19 @@ class HeaderComponent extends Component {
         return (
             <div>
                 <header>
-                    Spring boot, React 게시판
+               
+                    <h1>Spring boot, React 게시판</h1>
+                    <div>
+                        <div>
+                        
+                        </div>
+                        <div>
+                            
+                        </div>
+                        <div>
+                            <a href="http://localhost:3000/login" className='login'>로그인</a>
+                        </div>
+                    </div>
                 </header>
                     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
                         <div className='navDiv'>
