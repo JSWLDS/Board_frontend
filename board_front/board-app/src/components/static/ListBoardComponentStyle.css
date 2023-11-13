@@ -36,11 +36,11 @@
     width: 88px;
     height: 35px;
     border-radius: 3px;
-    font-size: 0.93rem;
+    font-size: 0.965rem;
     border: 0;
     margin-bottom : 2px;
     color : #ffffff;
-    background-color: lightgreen;
+    background-color: rgb(81, 210, 81);
 }
 .l-wrrap-se{
     min-width: 900px;
