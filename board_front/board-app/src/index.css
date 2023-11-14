@@ -28,6 +28,7 @@ body{
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  min-width: 680px;
 }
 .master-wrrap{
   width: 100%;
@@ -37,6 +38,8 @@ body{
 section{
   width: 100%;
   min-height: 70vh;
+  display: flex;
+  justify-content: center;
 }
 .container {
   width: 100%;
@@ -86,7 +89,9 @@ footer{
 }
 nav > div {
   display: inline-block;
+  min-width: 600px;
 }
+
 .listDivWrrap{
   width: 100%;
   padding: 20px 0;

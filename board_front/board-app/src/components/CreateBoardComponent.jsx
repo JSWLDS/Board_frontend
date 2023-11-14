@@ -7,7 +7,8 @@ function CreateBoardComponent() {
         type: 1,
         title: '',
         contents: '',
-        memberId: ''
+        userId: ''
+
     });
 
     const changeTypeHandler = (event) => {
@@ -23,7 +24,7 @@ function CreateBoardComponent() {
     };
 
     const changeMemberNoHandler = (event) => {
-        setState({ ...state, memberId: event.target.value });
+        setState({ ...state, userId: event.target.value });
     };
 
     const createBoard = (event) => {
@@ -32,7 +33,7 @@ function CreateBoardComponent() {
             type: Number(state.type),
             title: state.title,
             contents: state.contents,
-            memberId: state.memberId
+            userId: state.userId
         };console.log(board)
         BoardService.createBoard(board).then((res) => {
             cancel();

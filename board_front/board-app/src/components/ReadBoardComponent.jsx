@@ -8,7 +8,8 @@ function ReadBoardComponent() {
     const navigate = useNavigate(); 
 
     const [state, setState] = useState({
-        board: {}
+        board: {},
+        edited : ""
         });
 
 
@@ -34,48 +35,87 @@ function ReadBoardComponent() {
         }
 
         return (
-            <div className = "row">
-                <label> Board Type : </label> {type}
+            <div className = "read-board-type-wrrap">
+                <label className='read-board-type'>{type}</label> 
             </div>
         )
 
-    }
-
-    function returnDate(cTime, uTime){
-        return (
-            <div className = "row">
-                <label>생성일 : [ {cTime} ] / 최종 수정일 : [ {uTime} ] </label>
-            </div>
-        )
     }
 
     
+    function returnCounts(counts){
+        return (
+            <div className='read-board-counts'>
+                <label>조회수 : {counts}</label>
+            </div>
+        )
+    }
+
+    function returnDate(cTime, uTime){
+        
+        if(cTime !== uTime){
+           setState({...state, edited:'(수정됨)'});
+        }
+
+        return (
+            <label> {cTime} {state.edited}</label>
+        )
+}
+    
+    function returnContent(content){
+        return (
+            <div className = "read-board-content">
+                <div>{content}</div> 
+            </div >
+        )
+    }
+     
+    function returnTitle(title){
+        return (
+            <h3 className ="read-title">{title}</h3>
+        )
+    }
+    
+    function returnUser(userId){
+        return (
+           
+            <div className = "read-userId">
+                {userId}
+            </div>
+        )
+    }
     function goToList() {
         navigate('/list-board');
     }
 
     return (
         <div className="read-board-wrrap">
-            <div className = "card col-md-6 offset-md-3">
-                <h3 className ="text-center"> Read Detail</h3>
-                <div className = "card-body">
-                        {returnBoardType(state.board.type)} 
-                        <div className = "row">      
-                            
-                            <label> Title </label> : {state.board.title}
+            <div className = "read-section">
+                <div className = "read-body">
+                    <div className='read-header'>
+                        <div className='r_h_grid_1'>
+                            {returnTitle(state.board.title)}
                         </div>
-
-                        <div className = "row">
-                            <label> Contents </label> 
-                            <textarea value={state.board.contents} readOnly/> 
-                        </div >
-
-                        <div className = "row">
-                            <label> MemberNo  </label>: 
-                            {state.board.memberId}
+                        <div className='r_h_grid_2'>
+                            <div className='temp-div_1 temp1_src1'>
+                                {returnUser(state.board.userId)}
+                                <p>•</p>
+                                {returnDate(state.board.createdTime, state.board.updatedTime) } 
+                            </div>
+                            <div className='temp-div_1 temp1_src2'>
+                                {returnBoardType(state.board.type)} 
+                                <p>•</p>
+                                {returnCounts(state.board.counts)}
+                            </div>
                         </div>
+                    </div>
+                    <hr/>
+                    <br></br>
+                   {returnContent(state.board.contents)}
 
-                        {returnDate(state.board.createdTime, state.board.updatedTime) }
+
+
+
                         
                         <button className="btn btn-primary" onClick={()=>{goToList()}} style={{marginLeft:"10px"}}>글 목록으로 이동</button>
                 </div>
@@ -84,6 +124,4 @@ function ReadBoardComponent() {
         </div>
     );
 }
-
-
 export default ReadBoardComponent;

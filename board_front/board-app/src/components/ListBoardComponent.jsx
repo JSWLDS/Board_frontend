@@ -14,9 +14,9 @@ function ListBoardComponent() {
     function createBoard(){
         navigate('/create-board');
     } 
-    function readBoard(boardId){
-        BoardService.updateCount(boardId)
-        navigate(`/read-board/${boardId}`);
+    function readBoard(userId){
+        BoardService.updateCount(userId)
+        navigate(`/read-board/${userId}`);
     }
 
     return (
@@ -43,7 +43,7 @@ function ListBoardComponent() {
                                 <tr key={board.boardId}>
                                     <td>{board.boardId}</td>
                                     <td onClick={()=> {readBoard(board.boardId)}}>{board.title}</td>
-                                    <td>{board.memberId}</td>
+                                    <td>{board.userId}</td>
                                     <td>{board.createdTime}</td>
                                     <td>{board.updatedTime}</td>
                                     <td>{board.counts}</td>
