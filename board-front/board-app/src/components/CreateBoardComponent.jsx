@@ -8,23 +8,37 @@ function CreateBoardComponent() {
         title: '',
         contents: '',
         userId: ''
-
     });
 
     const changeTypeHandler = (event) => {
-        setState({ ...state, type: event.target.value });
+        // 구조분해문법을 이용하여 생략해봄.
+        const {value} = event.target;
+        setState({ ...state, type: value });
     };
-
+    
     const changeTitleHandler = (event) => {
-        setState({ ...state, title: event.target.value });
+        const {value} = event.target;
+        setState({ ...state, title: value });
     };
 
     const changeContentsHandler = (event) => {
-        setState({ ...state, contents: event.target.value });
+        const maxLength = 3000;
+        const {value} = event.target;
+        if(value.length > maxLength){
+            alert(maxLength+'자 이하로 작성해주세요.');
+            // 현재는 state값이 아닌 textatrea의 value값을 가지고 온 것이다. state.contents.value의 값을 가지고 오면
+            // slice 에러가 난다. 문자열가 3000개 없는 데 혹은 없는 데 3000개로 자르려고 해서 에러가 난다.
+            const maxLengthContents = value.slice(0, maxLength);
+            setState({ ...state, contents: maxLengthContents });
+        }
+        else{
+            setState({ ...state, contents: value });
+        }
     };
 
     const changeMemberNoHandler = (event) => {
-        setState({ ...state, userId: event.target.value });
+        const {value} = event.target;
+        setState({ ...state, userId: value });
     };
 
     const createBoard = (event) => {
@@ -45,14 +59,14 @@ function CreateBoardComponent() {
     };
 
     return (
-        <div className='listDivWrrap c-wwarp'>
+        <div className='c-wwarp'>
             <div className="container">
-                <div className="row create-board-wrrap">
-                    <div className="card col-md-6 offset-md-3 offset-md-3 c-wrrap1">
-                        <h3 className="text-center">새글을 작성해주세요</h3>
-                        <div className="card-body">
+                <div className="create-board-wrrap">
+                    <div className="">
+                        <h3 className="">새글을 작성해주세요</h3>
+                        <div className="">
                             <form>
-                                <div className="form-group">
+                                <div className="">
                                     <label> Type </label>
                                     <select
                                         placeholder="type"
@@ -65,7 +79,7 @@ function CreateBoardComponent() {
                                         <option value="2">질문과 답변 게시판</option>
                                     </select>
                                 </div>
-                                <div className="form-group">
+                                <div className="">
                                     <label> Title </label>
                                     <input
                                         type="text"
@@ -76,31 +90,32 @@ function CreateBoardComponent() {
                                         onChange={changeTitleHandler}
                                     />
                                 </div>
-                                <div className="form-group">
+                                <div className="">
                                     <label> Contents </label>
                                     <textarea
                                         placeholder="contents"
                                         name="contents"
-                                        className="form-control contents"
+                                        id="contents"
+                                        className="create-contents"
                                         value={state.contents}
                                         onChange={changeContentsHandler}
                                     />
                                 </div>
-                                <div className="form-group">
-                                    <label> MemberNo </label>
+                                <div className="">
+                                    <label> UserId </label>
                                     <input
-                                        placeholder="member_if"
-                                        name="member_id"
+                                        placeholder="user_if"
+                                        name="user_id"
                                         className="form-control"
-                                        value={state.memberId}
+                                        value={state.userId}
                                         onChange={changeMemberNoHandler}
                                     />
                                 </div>
-                                <button className="btn btn-success" onClick={createBoard}>
+                                <button className="btn-success" onClick={createBoard}>
                                     Save
                                 </button>
                                 <button
-                                    className="btn btn-danger"
+                                    className=""
                                     onClick={cancel}
                                     style={{ marginLeft: "10px" }}
                                 >

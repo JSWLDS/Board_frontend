@@ -1,0 +1,105 @@
+.read-board-wrrap{
+    width: 66.6vw;
+  }
+.read-section{
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
+.read-board-type{
+  font-size: 0.8em;
+  font-weight: 600;
+}
+.read-board-counts{
+  font-size: 0.77em;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.board-font {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.read-body{
+  width: 100%;
+}
+.read-header{
+  width: 100%;
+  /* display: flex;
+  flex-flow: column; */
+}
+.read-board-contents{
+    
+  min-width: 50vw;
+  min-height: 30vh;
+
+  max-width: 100%;
+  /* max-height: 110vh; */
+  display: flex;
+  flex-wrap: nowrap;
+  padding : 10px;
+  font-size: 1.2em;
+
+  white-space: pre-wrap;
+
+  /* overflow-y: scroll; */
+  border: none;
+  margin-top: 10px;
+  line-height: 200%;
+}
+.r_h_grid_1{
+  width: 100%;
+  min-height: 50px;
+  max-height: 100px;
+  display: flex;
+  justify-content: center;
+}
+.read-board-title{
+  font-size: 30px;
+  margin-top: 8px;
+  font-weight: 900  ;
+}
+.read-board-date{
+  min-width: 119.3px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.read-board-date > p {
+  min-width: 50px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.r_h_grid_2{
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding : 0 5px;
+}
+.temp-div_1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.temp-div_1 > p {
+  margin: 0 10px;
+}
+.temp1_src1{
+  min-width: 160px;
+}
+.temp1_src2{
+  min-width: 140px;
+}
+.contents-end-line > hr{
+  margin: 0;
+}
+.comment-line{
+  width: 100%;
+  display: flex;
+  justify-content: center;  
+}
+.comment-line > div {
+  width: 99.75%;
+}
+.comment-line > div > hr{
+  margin: 2.6px;
+}

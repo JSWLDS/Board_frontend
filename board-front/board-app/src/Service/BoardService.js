@@ -6,9 +6,17 @@ const BOARD_API_BASE_URL = "http://localhost:8080/api/v1/board";
 
 class BoardService {
      
-
     getAllBoards() {
         return axios.get(BOARD_API_BASE_URL);
+    }
+
+    getAllTypeBoards(typeNo) {
+        if(typeNo === 0){
+           return this.getAllBoards();
+        }else{
+            return axios.get(BOARD_API_BASE_URL + '/type/' + typeNo);
+        }
+       
     }
 
     createBoard(board) {

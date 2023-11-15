@@ -46,33 +46,49 @@ function ReadBoardComponent() {
     function returnCounts(counts){
         return (
             <div className='read-board-counts'>
-                <label>조회수 : {counts}</label>
+                <label>조회 </label>{counts}
             </div>
         )
     }
 
     function returnDate(cTime, uTime){
         
+        const createdDateTime = new Date(cTime);
+        // long은 11월, short, numberic은 11 이런식으로 표현됨.
+        const formattedDate = createdDateTime.toLocaleString('ko-KR', {
+            year: 'numeric',
+            month: 'numeric', 
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            // second: 'numeric', // 초는생략함.
+            hour12: false // AM/PM 적용 여부
+        });
+
         if(cTime !== uTime){
            setState({...state, edited:'(수정됨)'});
         }
 
         return (
-            <label> {cTime} {state.edited}</label>
-        )
-}
-    
-    function returnContent(content){
-        return (
-            <div className = "read-board-content">
-                <div>{content}</div> 
-            </div >
+            <div className='read-board-date'>
+                <p> {formattedDate}{state.edited}</p>
+            </div>
         )
     }
-     
+    
+    function returnContent(contents){
+        return (
+            <pre className = "read-board-contents board-font">
+                {contents}
+            </pre>
+        )
+    }
+
     function returnTitle(title){
         return (
-            <h3 className ="read-title">{title}</h3>
+            <div className ="read-board-title">
+                <p>{title}</p>
+            </div>
         )
     }
     
@@ -80,7 +96,7 @@ function ReadBoardComponent() {
         return (
            
             <div className = "read-userId">
-                {userId}
+                <p>{userId} 님</p>
             </div>
         )
     }
@@ -110,10 +126,10 @@ function ReadBoardComponent() {
                         </div>
                     </div>
                     <hr/>
-                    <br></br>
+                    {/* <br/> */}   
                    {returnContent(state.board.contents)}
-
-
+                    <div className='contents-end-line'><hr/></div>
+                    <div className='comment-line'><div><hr /></div></div>
 
 
                         

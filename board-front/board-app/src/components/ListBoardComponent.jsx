@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // React Navigation에서 제공하는 useNavigation 훅을 가져옵니다.
+import { useNavigate } from 'react-router-dom'; 
 import BoardService from '../Service/BoardService';
-function ListBoardComponent() {
+function ListBoardComponent(props) {
     const navigate = useNavigate(); 
     const [boards, setBoards] = useState([]);
+    
+    const boardType = props.type;
+    
+    console.log(boardType)
 
     useEffect(() => {
-        BoardService.getAllBoards().then((res) => {
+        
+        let typeNo = 3;
+        if(boardType === 'freeBoard'){
+            typeNo = 1;
+            console.log('test1')
+        } else if(boardType === 'questionBoard'){
+            typeNo = 2;
+        } else if(boardType === 'allBoard'){
+            typeNo = 0;
+        }
+        
+        BoardService.getAllTypeBoards(typeNo).then((res) => {
             setBoards(res.data);
         });
-    }, []);
+        
+        
+    }, [boardType]);
 
     function createBoard(){
         navigate('/create-board');

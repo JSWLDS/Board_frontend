@@ -1,0 +1,13 @@
+
+.create-board-wrrap {
+    width: 100%;
+  }
+  .c-wrrap{
+    min-width: 1000px;
+    text-align: center;
+  }
+  .create-contents{
+    width: 70vw;
+    height: 50vw;
+    border: 1px solid #000000;
+  }
