@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate } from 'react-router-dom';
 function CreateBoardComponent() {
+
     const navigate = useNavigate();
     const [state, setState] = useState({
         board:{
@@ -11,6 +12,16 @@ function CreateBoardComponent() {
             userId: ''
         }
     });
+
+    
+    const handleChange = (event, field)=> {
+        const {value} = event.target;
+
+        setState((prevState)=>({
+            board:{...prevState.board,  [field] : value }
+        }));
+    };
+
 
     const changeTypeHandler = (event) => {
         // 구조분해문법을 이용하여 생략해봄.
