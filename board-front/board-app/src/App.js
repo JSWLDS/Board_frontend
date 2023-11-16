@@ -19,7 +19,7 @@ function App() {
 
   const freeBoard = 'freeBoard';
   const questionBoard = 'questionBoard';
-
+  const allBoard = "allBoard";
   return (
     <div className='master-wrrap'>
       <Router>           
@@ -28,9 +28,9 @@ function App() {
           <section>
             <Routes>       
               <Route path='/'  element = {<Main />}></Route>
-              <Route path='/list-board/freeBoard'  element = {<ListBoardComponent type={"freeBoard"} />}></Route>
-              <Route path='/list-board/questionBoard'  element = {<ListBoardComponent type={"questionBoard"} />}></Route>
-              <Route path='/list-board/allBoard'  element = {<ListBoardComponent type={"allBoard"} />}></Route>
+              <Route path='/list-board/free'  element = {<ListBoardComponent type={freeBoard} />}></Route>
+              <Route path='/list-board/question'  element = {<ListBoardComponent type={questionBoard} />}></Route>
+              <Route path='/list-board/all'  element = {<ListBoardComponent type={allBoard} />}></Route>
               <Route path='/create-board'  element = {<CreateBoardComponent />}></Route>
               <Route path='/read-board/:boardId'  element = {<ReadBoardComponent />}></Route>
               <Route path='/login'  element = {<LoginComponent />}></Route>

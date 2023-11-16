@@ -4,6 +4,8 @@
   }
   .c-wrrap{
     min-width: 1000px;
+    display: flex;
+    justify-content: center;
     text-align: center;
   }
   .create-contents{

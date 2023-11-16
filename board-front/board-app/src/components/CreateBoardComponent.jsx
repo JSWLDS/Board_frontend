@@ -4,21 +4,23 @@ import { useNavigate } from 'react-router-dom';
 function CreateBoardComponent() {
     const navigate = useNavigate();
     const [state, setState] = useState({
-        type: 1,
-        title: '',
-        contents: '',
-        userId: ''
+        board:{
+            typeNo: 1,
+            title: '',
+            contents: '',
+            userId: ''
+        }
     });
 
     const changeTypeHandler = (event) => {
         // 구조분해문법을 이용하여 생략해봄.
         const {value} = event.target;
-        setState({ ...state, type: value });
+        setState({ ...state.board, typeNo: value });
     };
     
     const changeTitleHandler = (event) => {
         const {value} = event.target;
-        setState({ ...state, title: value });
+        setState({ ...state.board, title: value });
     };
 
     const changeContentsHandler = (event) => {
@@ -27,40 +29,53 @@ function CreateBoardComponent() {
         if(value.length > maxLength){
             alert(maxLength+'자 이하로 작성해주세요.');
             // 현재는 state값이 아닌 textatrea의 value값을 가지고 온 것이다. state.contents.value의 값을 가지고 오면
-            // slice 에러가 난다. 문자열가 3000개 없는 데 혹은 없는 데 3000개로 자르려고 해서 에러가 난다.
+            // slice 에러가 난다. 문자열이 3000자가 아닌 데 혹은 없는 데 3000개로 자르려고 해서 에러가 난다.
             const maxLengthContents = value.slice(0, maxLength);
-            setState({ ...state, contents: maxLengthContents });
+            setState({ ...state.board, contents: maxLengthContents });
         }
         else{
-            setState({ ...state, contents: value });
+            setState({ ...state.board, contents: value });
         }
     };
 
     const changeMemberNoHandler = (event) => {
         const {value} = event.target;
-        setState({ ...state, userId: value });
+        setState({ ...state.board, userId: value });
     };
 
     const createBoard = (event) => {
         event.preventDefault();
         let board = {
-            type: Number(state.type),
-            title: state.title,
-            contents: state.contents,
-            userId: state.userId
-        };console.log(board)
+            typeNo: Number(state.board.typeNo),
+            title: state.board.title,
+            contents: state.board.contents,
+            userId: state.board.userId
+        };
+        console.log(board)
+
         BoardService.createBoard(board).then((res) => {
-            cancel();
+            goToBoard();
         });
     };
 
-    const cancel = () => {
-        navigate('/list-board');
+    const goToBoard = () => {
+
+        const getBoardType = state.board.typeNo;        
+        let boardType = "";
+
+
+        if(getBoardType === 1){
+            boardType = "free";
+        }else if(getBoardType === 2){
+            boardType = "question";
+        }
+
+        navigate('/list-board/' + boardType);       
     };
 
     return (
         <div className='c-wwarp'>
-            <div className="container">
+            <div className="">
                 <div className="create-board-wrrap">
                     <div className="">
                         <h3 className="">새글을 작성해주세요</h3>
@@ -69,15 +84,15 @@ function CreateBoardComponent() {
                                 <div className="">
                                     <label> Type </label>
                                     <select
-                                        placeholder="type"
-                                        name="type"
+                                        placeholder="typeNo"
+                                        name="typeNo"
                                         className="form-control"
-                                        value={state.type}
+                                        value={state.board.typeNo}
                                         onChange={changeTypeHandler}
                                     >
                                         <option value="1">자유 게시판</option>
                                         <option value="2">질문과 답변 게시판</option>
-                                    </select>
+                                    </select>   
                                 </div>
                                 <div className="">
                                     <label> Title </label>
@@ -86,7 +101,7 @@ function CreateBoardComponent() {
                                         placeholder="title"
                                         name="title"
                                         className="form-control"
-                                        value={state.title}
+                                        value={state.board.title}
                                         onChange={changeTitleHandler}
                                     />
                                 </div>
@@ -95,9 +110,8 @@ function CreateBoardComponent() {
                                     <textarea
                                         placeholder="contents"
                                         name="contents"
-                                        id="contents"
                                         className="create-contents"
-                                        value={state.contents}
+                                        value={state.board.contents}
                                         onChange={changeContentsHandler}
                                     />
                                 </div>
@@ -107,7 +121,7 @@ function CreateBoardComponent() {
                                         placeholder="user_if"
                                         name="user_id"
                                         className="form-control"
-                                        value={state.userId}
+                                        value={state.board.userId}
                                         onChange={changeMemberNoHandler}
                                     />
                                 </div>
@@ -116,7 +130,7 @@ function CreateBoardComponent() {
                                 </button>
                                 <button
                                     className=""
-                                    onClick={cancel}
+                                    onClick={goToBoard}
                                     style={{ marginLeft: "10px" }}
                                 >
                                     Cancel
