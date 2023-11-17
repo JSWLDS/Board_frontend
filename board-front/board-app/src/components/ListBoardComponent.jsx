@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import BoardService from '../Service/BoardService';
+import PublicHandler from './static/js/PublicHandler';
 function ListBoardComponent(props) {
+
     const navigate = useNavigate(); 
     const [state, setState] = useState({
         boards : [],
-        title : ""
+        subjectKor : "",
+        subjectEng : ""
     });
     
     const boardType = props.type;
@@ -13,52 +16,36 @@ function ListBoardComponent(props) {
 
     useEffect(() => {
 
-        const identifiedType = typeConverter(boardType);
+        const identifiedType = PublicHandler.getType(boardType);
         
         const typeNo = identifiedType[0];
-        const typeName = identifiedType[1];
+        const typeNameKor = identifiedType[1];
+        const typeNameEng = identifiedType[2];
 
-        console.log(identifiedType[1])
         BoardService.getAllTypeBoards(typeNo).then((res) => {
             setState(state => ({...state, boards :res.data}));
         });
-        setState(state => ({...state, title : typeName}));
 
-        
+        setState(state => ({...state, subjectKor : typeNameKor}));
+
+        setState(state => ({...state, subjectEng : typeNameEng}));
+
     }, [boardType]);
 
 
     function createBoard(){
-        navigate('/create-board');
+        navigate(`/create-board/${state.subjectEng}`);
     } 
     function readBoard(boardId){
         BoardService.updateCount(boardId)
         navigate(`/read-board/${boardId}`);
     }
     function getBoardTitle(){
-        const boardTypeName = state.title;
+        const boardTypeName = state.subjectKor;
         return boardTypeName;
     }
 
-    function typeConverter(boardTypeEn){
-        let boardTypeNo = 0;
-        let boardTypeKor = "";
 
-        if(boardTypeEn === 'freeBoard' || boardTypeEn === 1){
-            boardTypeNo = 1;
-            boardTypeKor = "자유 게시판";
-        } else if(boardTypeEn === 'questionBoard'|| boardTypeEn ===2){
-            boardTypeNo = 2;
-            boardTypeKor = "질문과 답변 게시판";
-        } else if(boardTypeEn === 'allBoard'){
-            boardTypeNo = 0;
-            boardTypeKor = "전체 게시판";
-        } else {
-            boardTypeNo = 3;
-            boardTypeKor = "타입 미지정";
-        }
-        return [boardTypeNo, boardTypeKor];
-    }
 
 
     return (
@@ -86,7 +73,7 @@ function ListBoardComponent(props) {
                                     <td>{board.boardId}</td>
                                     <td onClick={()=> {readBoard(board.boardId)}}>{board.title}</td>
                                     <td>{board.userId}</td>
-                                    <td>{typeConverter(board.typeNo)[1]}</td>
+                                    <td>{PublicHandler.getType(board.typeNo)[1]}</td>
                                     <td>{board.createdTime}</td>
                                     <td>{board.updatedTime}</td>
                                     <td>{board.counts}</td>

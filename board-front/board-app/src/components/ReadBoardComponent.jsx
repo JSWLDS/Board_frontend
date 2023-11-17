@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate, useParams } from 'react-router-dom';
-
 function ReadBoardComponent() {
 
     const {boardId} = useParams();
@@ -78,9 +77,11 @@ function ReadBoardComponent() {
     
     function returnContent(contents){
         return (
-            <pre className = "read-board-contents board-font">
-                {contents}
-            </pre>
+            <div className='read-board-contents'>
+                <pre className = "board-font">
+                    {contents}
+                </pre>
+            </div>
         )
     }
 

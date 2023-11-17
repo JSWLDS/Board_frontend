@@ -17,9 +17,6 @@
   margin-top: 2px;
 }
 
-.board-font {
-  font-family: 'Noto Sans KR', sans-serif;
-}
 .read-body{
   width: 100%;
 }
@@ -36,7 +33,7 @@
   max-width: 100%;
   /* max-height: 110vh; */
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   padding : 10px;
   font-size: 1.2em;
 
@@ -46,6 +43,10 @@
   border: none;
   margin-top: 10px;
   line-height: 200%;
+} 
+.read-board-contents > pre{
+  width: 100%;
+  white-space: pre-wrap;
 }
 .r_h_grid_1{
   width: 100%;

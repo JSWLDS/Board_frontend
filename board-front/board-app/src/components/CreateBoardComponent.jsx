@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate } from 'react-router-dom';
-function CreateBoardComponent() {
+import PublicHandler from './static/js/PublicHandler';
 
+
+function CreateBoardComponent(props) {
+
+        
+    const boardType = props.type;
     const navigate = useNavigate();
     const [state, setState] = useState({
         board:{
@@ -10,48 +15,55 @@ function CreateBoardComponent() {
             title: '',
             contents: '',
             userId: ''
-        }
+        },
+        typeValue : boardType
     });
-
-    
+   
     const handleChange = (event, field)=> {
-        const {value} = event.target;
 
-        setState((prevState)=>({
-            board:{...prevState.board,  [field] : value }
-        }));
+
+        // 구조분해문법을 이용하여 생략해봄. (학습)
+        // const {value} = event.target;
+        let identifiedValue;
+        if(typeof(event) === "object"){
+            identifiedValue = event.target.value;
+        }else{
+            identifiedValue = event;
+        }
+
+        const value = identifiedValue;
+
+        setState((prevState)=>({...state, board:{...prevState.board,  [field] : value }}));
     };
 
 
     const changeTypeHandler = (event) => {
-        // 구조분해문법을 이용하여 생략해봄.
-        const {value} = event.target;
-        setState({ ...state.board, typeNo: value });
+        handleChange(event, "typeNo");
     };
     
     const changeTitleHandler = (event) => {
-        const {value} = event.target;
-        setState({ ...state.board, title: value });
+        handleChange(event, "title");
     };
 
     const changeContentsHandler = (event) => {
         const maxLength = 3000;
         const {value} = event.target;
+        let contents;
         if(value.length > maxLength){
-            alert(maxLength+'자 이하로 작성해주세요.');
-            // 현재는 state값이 아닌 textatrea의 value값을 가지고 온 것이다. state.contents.value의 값을 가지고 오면
-            // slice 에러가 난다. 문자열이 3000자가 아닌 데 혹은 없는 데 3000개로 자르려고 해서 에러가 난다.
+            alert(`${maxLength}자 이하로 작성해주세요.`);
+            // 현재는 state값이 아닌 textatrea의 value값을 가지고 온 것이다. state.contents.value의 값을 가지고 오면 에러가 난다. 
+            // 문자열이 3000자가 아닌 데 혹은 없는 데 3000개로 자르려고 해서 에러가 난다.
             const maxLengthContents = value.slice(0, maxLength);
-            setState({ ...state.board, contents: maxLengthContents });
+            contents = maxLengthContents;
         }
         else{
-            setState({ ...state.board, contents: value });
+            contents = event;
         }
+        handleChange(contents, "contents");
     };
 
-    const changeMemberNoHandler = (event) => {
-        const {value} = event.target;
-        setState({ ...state.board, userId: value });
+    const changeUserIdHandler = (event) => {
+        handleChange(event, "userId");
     };
 
     const createBoard = (event) => {
@@ -71,18 +83,51 @@ function CreateBoardComponent() {
 
     const goToBoard = () => {
 
-        const getBoardType = state.board.typeNo;        
-        let boardType = "";
+        const getBoardType = state.board.typeNo;   
 
+        const boardType = PublicHandler.getType(getBoardType);
 
-        if(getBoardType === 1){
-            boardType = "free";
-        }else if(getBoardType === 2){
-            boardType = "question";
-        }
-
-        navigate('/list-board/' + boardType);       
+        navigate('/list-board/' + boardType[2]);       
     };
+
+    const boardTypeSelection= () => {
+
+        const typeValue = state.typeValue;
+        let typeSelect;
+        if(typeValue === 0){
+            typeSelect = (
+                    <select
+                        placeholder="typeNo"
+                        name="typeNo"
+                        className="typeKorName"
+                        value={state.board.typeNo}
+                        onChange={changeTypeHandler}
+                    >
+                        <option value="1">자유 게시판</option>
+                        <option value="2">질문과 답변 게시판</option>
+                    </select>
+            );
+        }else if(typeValue === "free") {
+            const typeKor = PublicHandler.getType(typeValue)[1];
+            typeSelect = (
+                <p className='typeKorName'>{typeKor}</p>
+            );
+    
+        }else if(typeValue === "question") {
+            const typeKor = PublicHandler.getType(typeValue)[1];
+            typeSelect = (
+                <p className='typeKorName'>{typeKor}</p>
+            );
+        }
+        return (
+            <div className="">
+            <label> Type : {typeSelect}</label>
+            </div>  
+        );
+    }
+
+   
+
 
     return (
         <div className='c-wwarp'>
@@ -93,17 +138,8 @@ function CreateBoardComponent() {
                         <div className="">
                             <form>
                                 <div className="">
-                                    <label> Type </label>
-                                    <select
-                                        placeholder="typeNo"
-                                        name="typeNo"
-                                        className="form-control"
-                                        value={state.board.typeNo}
-                                        onChange={changeTypeHandler}
-                                    >
-                                        <option value="1">자유 게시판</option>
-                                        <option value="2">질문과 답변 게시판</option>
-                                    </select>   
+                                    {boardTypeSelection()}
+                                    {console.log(boardTypeSelection())}
                                 </div>
                                 <div className="">
                                     <label> Title </label>
@@ -121,7 +157,8 @@ function CreateBoardComponent() {
                                     <textarea
                                         placeholder="contents"
                                         name="contents"
-                                        className="create-contents"
+                                        id="contents"
+                                        className="create-contents board-font"
                                         value={state.board.contents}
                                         onChange={changeContentsHandler}
                                     />
@@ -133,7 +170,7 @@ function CreateBoardComponent() {
                                         name="user_id"
                                         className="form-control"
                                         value={state.board.userId}
-                                        onChange={changeMemberNoHandler}
+                                        onChange={changeUserIdHandler}
                                     />
                                 </div>
                                 <button className="btn-success" onClick={createBoard}>
