@@ -120,7 +120,7 @@ function ReadBoardComponent() {
                                 {returnDate(state.board.createdTime, state.board.updatedTime) } 
                             </div>
                             <div className='temp-div_1 temp1_src2'>
-                                {returnBoardType(state.board.type)} 
+                                {returnBoardType(state.board.typeNo)} 
                                 <p>•</p>
                                 {returnCounts(state.board.counts)}
                             </div>

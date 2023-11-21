@@ -10,7 +10,7 @@ class NavComponent extends Component {
                 <div><a href="http://localhost:3000/list-board/all" className="navbar-brand">전체 게시판</a></div>
                 <div><a href="http://localhost:3000/list-board/free" className="navbar-brand">자유게시판</a></div>
                 <div><a href="http://localhost:3000/list-board/question" className="navbar-brand">질문과 답변 게시판</a></div>
-                <div><a href="http://localhost:3000/create-board" className="navbar-brand"> Board-create-App</a></div>
+                <div><a href="http://localhost:3000/create-board/all" className="navbar-brand"> Board-create-App</a></div>
             </div>
             </nav>
 

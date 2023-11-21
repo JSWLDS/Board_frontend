@@ -45,6 +45,21 @@ function ListBoardComponent(props) {
         return boardTypeName;
     }
 
+    function getAllTypeBoards(){
+        return (
+            state.boards.map(board => (                                <tr key={board.boardId}>
+                <td>{board.boardId}</td>
+                <td onClick={()=> {readBoard(board.boardId)}}>{board.title}</td>
+                <td>{board.userId}</td>
+                <td>{PublicHandler.getType(board.typeNo)[1]}</td>
+                <td>{board.createdTime}</td>
+                <td>{board.updatedTime}</td>
+                <td>{board.counts}</td>
+                {console.log(board)}
+            </tr>
+            ))
+        );
+    }
 
 
 
@@ -56,7 +71,7 @@ function ListBoardComponent(props) {
                     <div className='l-header'>
                         <button className="create-btn" onClick={createBoard}>글 작성</button>
                     </div>
-                    <table border={1} className="table table-striped table-bordered">
+                    <table border={1} className="table">
                         <thead>
                             <tr>
                                 <th>글 번호</th>
@@ -69,17 +84,7 @@ function ListBoardComponent(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {state.boards.map(board => (                                <tr key={board.boardId}>
-                                    <td>{board.boardId}</td>
-                                    <td onClick={()=> {readBoard(board.boardId)}}>{board.title}</td>
-                                    <td>{board.userId}</td>
-                                    <td>{PublicHandler.getType(board.typeNo)[1]}</td>
-                                    <td>{board.createdTime}</td>
-                                    <td>{board.updatedTime}</td>
-                                    <td>{board.counts}</td>
-                                    {console.log(board)}
-                                </tr>
-                            ))}
+                          {getAllTypeBoards()}
                         </tbody>
                     </table>
                 </div>
