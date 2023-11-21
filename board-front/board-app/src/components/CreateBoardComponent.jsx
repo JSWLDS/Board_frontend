@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate } from 'react-router-dom';
 import PublicHandler from './static/js/PublicHandler';
@@ -7,18 +7,21 @@ import PublicHandler from './static/js/PublicHandler';
 function CreateBoardComponent(props) {
 
         
-    const boardType = props.type;
+    const typeEng = props.type;
+    let typeNo = PublicHandler.getType(typeEng)[0];
     const navigate = useNavigate();
     const [state, setState] = useState({
         board:{
-            typeNo: 1,
+            typeNo: typeEng === 'all'? 1 : typeNo ,
             title: '',
             contents: '',
             userId: ''
-        },
-        typeValue : boardType
+        }
     });
-   
+
+
+
+
     const handleChange = (event, field)=> {
 
 
@@ -30,7 +33,6 @@ function CreateBoardComponent(props) {
         }else{
             identifiedValue = event;
         }
-
         const value = identifiedValue;
 
         setState((prevState)=>({...state, board:{...prevState.board,  [field] : value }}));
@@ -38,7 +40,9 @@ function CreateBoardComponent(props) {
 
 
     const changeTypeHandler = (event) => {
+
         handleChange(event, "typeNo");
+    
     };
     
     const changeTitleHandler = (event) => {
@@ -83,51 +87,33 @@ function CreateBoardComponent(props) {
 
     const goToBoard = () => {
 
-        const getBoardType = state.board.typeNo;   
+        navigate('/list-board/' + typeEng);       
+    };  
 
-        const boardType = PublicHandler.getType(getBoardType);
+   const returnSelected = () =>{
 
-        navigate('/list-board/' + boardType[2]);       
-    };
+    const typeValue = state.board.typeNo;
+    const typeKor = PublicHandler.getType(typeValue)[1];
 
-    const boardTypeSelection= () => {
+    return (
+        <p className='typeKorName'>{typeKor}</p>
+    );
 
-        const typeValue = state.typeValue;
-        let typeSelect;
-        if(typeValue === 0){
-            typeSelect = (
-                    <select
-                        placeholder="typeNo"
-                        name="typeNo"
-                        className="typeKorName"
-                        value={state.board.typeNo}
-                        onChange={changeTypeHandler}
-                    >
-                        <option value="1">자유 게시판</option>
-                        <option value="2">질문과 답변 게시판</option>
-                    </select>
-            );
-        }else if(typeValue === "free") {
-            const typeKor = PublicHandler.getType(typeValue)[1];
-            typeSelect = (
-                <p className='typeKorName'>{typeKor}</p>
-            );
-    
-        }else if(typeValue === "question") {
-            const typeKor = PublicHandler.getType(typeValue)[1];
-            typeSelect = (
-                <p className='typeKorName'>{typeKor}</p>
-            );
-        }
-        return (
-            <div className="">
-            <label> Type : {typeSelect}</label>
-            </div>  
-        );
-    }
-
-   
-
+   };
+   const returnSelect = () => {
+    return (
+        <select
+            placeholder="typeNo"
+            name="typeNo"
+            className="typeKorName"
+            value={state.board.typeNo}
+            onChange={changeTypeHandler}
+        >
+            <option value="1">자유 게시판</option>
+            <option value="2">질문과 답변 게시판</option>
+        </select>
+    );
+   }
 
     return (
         <div className='c-wwarp'>
@@ -138,8 +124,9 @@ function CreateBoardComponent(props) {
                         <div className="">
                             <form>
                                 <div className="">
-                                    {boardTypeSelection()}
-                                    {console.log(boardTypeSelection())}
+                                   
+                                    <label> Type : {typeEng === "all" ? returnSelect() : returnSelected()}</label>
+                                   
                                 </div>
                                 <div className="">
                                     <label> Title </label>

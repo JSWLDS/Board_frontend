@@ -10,8 +10,8 @@ function ListBoardComponent(props) {
         subjectKor : "",
         subjectEng : ""
     });
-    
-    const boardType = props.type;
+        
+        const boardType = props.type;
 
 
     useEffect(() => {
