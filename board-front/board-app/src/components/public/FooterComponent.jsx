@@ -6,7 +6,7 @@ class FooterComponent extends Component {
 
         this.state = {
 
-        }
+        } 
     }
     render() {
         return (
