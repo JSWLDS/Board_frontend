@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import BoardService from '../Service/BoardService';
-import PublicHandler from './static/js/PublicHandler';
+import TypeConverter from '../components/static/js/TypeConverter';
+
 function ListBoardComponent(props) {
 
     const navigate = useNavigate(); 
@@ -16,7 +17,7 @@ function ListBoardComponent(props) {
 
     useEffect(() => {
 
-        const identifiedType = PublicHandler.getType(boardType);
+        const identifiedType = TypeConverter.getType(boardType);
         
         const typeNo = identifiedType[0];
         const typeNameKor = identifiedType[1];
@@ -38,20 +39,23 @@ function ListBoardComponent(props) {
     } 
     function readBoard(boardId){
         BoardService.updateCount(boardId)
-        navigate(`/read-board/${boardId}`);
+        // 시간을 안 기다리고 바로 navigate를 실행하면 카운트가 안세진 숫자로 read에서 표시되는 경우가 있음.
+        setTimeout(() =>   navigate(`/read-board/${boardId}`), 100);
+        // navigate(`/read-board/${boardId}`);
     }
-    function getBoardTitle(){
+    function getBoardTitle(){ 
         const boardTypeName = state.subjectKor;
         return boardTypeName;
     }
 
-    function getAllTypeBoards(){
+    function getAllTypeBoards(){  
         return (
-            state.boards.map(board => (                                <tr key={board.boardId}>
+            state.boards.map(board => (                                
+            <tr key={board.boardId}>
                 <td>{board.boardId}</td>
                 <td onClick={()=> {readBoard(board.boardId)}}>{board.title}</td>
                 <td>{board.userId}</td>
-                <td>{PublicHandler.getType(board.typeNo)[1]}</td>
+                <td>{TypeConverter.getType(board.typeNo)[1]}</td>
                 <td>{board.createdTime}</td>
                 <td>{board.updatedTime}</td>
                 <td>{board.counts}</td>

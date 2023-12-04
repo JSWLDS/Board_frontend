@@ -20,8 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "proxy": "http://localhost:8080"
+  }
   ,
   "eslintConfig": {
     "extends": [
@@ -43,5 +42,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }

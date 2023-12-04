@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate } from 'react-router-dom';
-import PublicHandler from './static/js/PublicHandler';
+import TypeConverter from './static/js/TypeConverter';
 
 
 function CreateBoardComponent(props) {
 
         
     const typeEng = props.type;
-    let typeNo = PublicHandler.getType(typeEng)[0];
+    let typeNo = TypeConverter.getType(typeEng)[0];
     const navigate = useNavigate();
     const [state, setState] = useState({
         board:{
@@ -93,7 +93,7 @@ function CreateBoardComponent(props) {
    const returnSelected = () =>{
 
     const typeValue = state.board.typeNo;
-    const typeKor = PublicHandler.getType(typeValue)[1];
+    const typeKor = TypeConverter.getType(typeValue)[1];
 
     return (
         <p className='typeKorName'>{typeKor}</p>
