@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate, useParams } from 'react-router-dom';
+import viewIcon from './public/img/icon-veiw.png';
 function ReadBoardComponent() {
 
     const {boardId} = useParams();
@@ -42,10 +43,10 @@ function ReadBoardComponent() {
     }
 
     
-    function returnCounts(counts){
+    function returnCounts(counts){                                                                                             
         return (
             <div className='read-board-counts'>
-                <label>조회 </label>{counts}
+                <div className='r-label-cover'><label><img src={viewIcon} alt='error' className='icon-view'/><p>{counts}</p></label></div>
             </div>
         )
     }
@@ -119,7 +120,7 @@ function ReadBoardComponent() {
                                 <p>•</p>
                                 {returnDate(state.board.createdTime, state.board.updatedTime) } 
                             </div>
-                            <div className='temp-div_1 temp1_src2'>
+                            <div className='board-type-count temp-div_1 temp1_src2'>
                                 {returnBoardType(state.board.typeNo)} 
                                 <p>•</p>
                                 {returnCounts(state.board.counts)}

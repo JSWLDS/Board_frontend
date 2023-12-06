@@ -11,11 +11,6 @@
   font-size: 0.8em;
   font-weight: 600;
 }
-.read-board-counts{
-  font-size: 0.77em;
-  font-weight: 600;
-  margin-top: 2px;
-}
 
 .read-body{
   width: 100%;
@@ -103,4 +98,49 @@
 }
 .comment-line > div > hr{
   margin: 2.6px;
+}
+
+
+.read-board-counts{
+  width:50px;
+  height: 100%;
+  font-size: 0.77em;
+  font-weight: 600;
+  position: relative;
+  display: flex;
+  justify-self: center;
+}
+
+.read-board-counts > .r-label-cover{
+  width: 100px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+}
+
+.board-type-count{
+
+}
+.read-board-counts > .r-label-cover{
+  width: 0px;
+  margin-top: 2px;
+}
+.read-board-counts > .r-label-cover > label{
+  width: 38px;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon-view {
+  width:20px;
+}
+.r-label-cover > label > p {
+  margin-top: 10px;
+}
+
+.read-board-counts p{
+  display: inline-block;
 }
