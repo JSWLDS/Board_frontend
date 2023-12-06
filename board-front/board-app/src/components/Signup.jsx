@@ -50,6 +50,7 @@ const changeEmailHandler = (event) => {
         username : state.member.username,
         password : state.member.password,
         email : state.member.email,
+        // 기본적으로 USER 권하이며, 생략하면 null이라면 에러남.
         role : "USER"
     }
     BoardService.createMember(member).then((res)=>{
