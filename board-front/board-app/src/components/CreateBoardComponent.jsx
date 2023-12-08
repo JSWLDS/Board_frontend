@@ -50,13 +50,13 @@ function CreateBoardComponent(props) {
     };
 
     const changeContentsHandler = (event) => {
-        const maxLength = 3000;
+        const maxLength = 5000;
         const {value} = event.target;
         let contents;
         if(value.length > maxLength){
             alert(`${maxLength}자 이하로 작성해주세요.`);
             // 현재는 state값이 아닌 textatrea의 value값을 가지고 온 것이다. state.contents.value의 값을 가지고 오면 에러가 난다. 
-            // 문자열이 3000자가 아닌 데 혹은 없는 데 3000개로 자르려고 해서 에러가 난다.
+            // 문자열이 5000자가 아닌 데 혹은 없는 데 5000개로 자르려고 해서 에러가 난다.
             const maxLengthContents = value.slice(0, maxLength);
             contents = maxLengthContents;
         }

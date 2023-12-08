@@ -44,20 +44,30 @@ const changeEmailHandler = (event) => {
 
   const handleSignup = (event) => {
 
+    // state 방식으로 데이터를 전송하기 때문에 email 패턴을 정규 표현식을 이용하여 적용하였다.
+    let email_format = /^[a-zA-Z_\.-][a-zA-Z_\d\.-]*@[a-zA-Z_\d]+(\.[a-zA-Z_\d]+){1,2}$/;
+    const email = state.member.email;
+
+    if (!email_format.test(email)){
+      alert("잘못된 이메일 형식입니다");
+      return;
+    }
+       
+      
     event.preventDefault();
     const member = {
         nickname : state.member.nickname,
         username : state.member.username,
         password : state.member.password,
         email : state.member.email,
-        // 기본적으로 USER 권하이며, 생략하면 null이라면 에러남.
+        // 기본적으로 USER 권한이며, 생략하면 null이라서 에러남. ㅋ
         role : "USER"
     }
     BoardService.createMember(member).then((res)=>{
         goToBoard();
     });
 
-    console.log('다음으로 회원가입 중:', state.member);
+    //console.log('다음으로 회원가입 중:', state.member);
   };
 
   const goToBoard = () => {
@@ -100,6 +110,7 @@ const changeEmailHandler = (event) => {
           이메일:
           <input
             type="email"
+            pattern='.+@gmail\.com'
             value={state.member.email}
             onChange={changeEmailHandler}
           />
