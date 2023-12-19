@@ -13,7 +13,8 @@ import HeaderComponent from './components/public/HeaderComponent';
 import FooterComponent from './components/public/FooterComponent';
 import ReadBoardComponent from './components/ReadBoardComponent';
 import LoginComponent from './components/LoginComponent';
-import Signup from './components/Signup';
+import Signup from './components/SignupComponent';
+import SignupComponent from './components/SignupComponent';
 
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
 
               <Route path='/read-board/:boardId'  element = {<ReadBoardComponent />}></Route>
               <Route path='/login'  element = {<LoginComponent />}></Route>
-              <Route path='/signup'  element = {<Signup />}></Route>
+              <Route path='/signup'  element = {<SignupComponent />}></Route>
             </Routes>
           </section>
         </div>

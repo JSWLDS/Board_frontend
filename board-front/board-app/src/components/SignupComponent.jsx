@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import BoardService from '../Service/BoardService';
 
 
-function Signup() {
+function SignupComponent() {
     const [state, setState] = useState({
         member:{
             nickname : "",
@@ -45,11 +45,22 @@ const changeEmailHandler = (event) => {
   const handleSignup = (event) => {
 
     // state 방식으로 데이터를 전송하기 때문에 email 패턴을 정규 표현식을 이용하여 적용하였다.
-    let email_format = /^[a-zA-Z_\.-][a-zA-Z_\d\.-]*@[a-zA-Z_\d]+(\.[a-zA-Z_\d]+){1,2}$/;
+    const email_format = /^[a-zA-Z_.-][a-zA-Z_\d.-]*@[a-zA-Z_\d]+(\.[a-zA-Z_\d]+){1,2}$/;
+    const username_format = /^[a-zA-Z][a-zA-Z0-9]*$/;
+    const passowrd_format = /^[a-zA-Z0-9!@#$]*$/;
+
     const email = state.member.email;
+    const username = state.member.username;
+    const passowrd = state.member.passowrd;
 
     if (!email_format.test(email)){
       alert("잘못된 이메일 형식입니다");
+      return;
+    }else if(!username_format.test(username)){
+      alert("잘못된 아이디 형식입니다");
+      return;
+    }else if(!passowrd_format.test(passowrd)){
+      alert("잘못된 비밀번호 형식입니다");
       return;
     }
        
@@ -89,7 +100,7 @@ const changeEmailHandler = (event) => {
         </label>
         <br />
         <label>
-          사용자 이름:
+          아이디:
           <input
             type="text"
             value={state.member.username}
@@ -124,4 +135,4 @@ const changeEmailHandler = (event) => {
   );
 };
 
-export default Signup;
+export default SignupComponent;
