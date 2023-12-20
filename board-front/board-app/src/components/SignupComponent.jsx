@@ -1,7 +1,7 @@
 // Signup.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BoardService from '../Service/BoardService';
+import MemberService from '../Service/MemberService';
 
 
 function SignupComponent() {
@@ -74,14 +74,14 @@ const changeEmailHandler = (event) => {
         // 기본적으로 USER 권한이며, 생략하면 null이라서 에러남. ㅋ
         role : "USER"
     }
-    BoardService.createMember(member).then((res)=>{
-        goToBoard();
+    MemberService.signMember(member).then((res)=>{
+      goToSign();
     });
 
     //console.log('다음으로 회원가입 중:', state.member);
   };
 
-  const goToBoard = () => {
+  const goToSign = () => {
 
     navigate('/login');       
 };  

@@ -1,14 +1,84 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'; // react-router-dom에서 Link 가져오기
+import MemberService from '../Service/MemberService'
+import Cookies from 'js-cookie';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const LoginComponent = () => {
 
-  const handleLogin = () => {
-    // 여기에 로그인 로직을 추가하세요. 예: 자격 증명을 확인하기 위해 API 호출
-    console.log('다음으로 로그인 중:', { username, password });
+    const [state, setState] = useState({
+        member:{
+            username : "",
+            password : ""
+        }
+    });
+    const navigate = useNavigate();
+
+    const handleChange = (event, field)=> {
+    
+        const {value} = event.target;
+
+        setState((prevState)=>({...state, member:{...prevState.member,  [field] : value }}));
+    };
+
+
+    const changeUsernameHandler = (event) => {
+
+        handleChange(event, "username");
+    };
+    const changePasswordHandler = (event) => {
+        handleChange(event, "password");
+    };
+
+   
+  const handleLogin = (event) => {
+
+
+    const username_format = /^[a-zA-Z][a-zA-Z0-9]*$/;
+    const passowrd_format = /^[a-zA-Z0-9!@#$]*$/;
+
+    const username = state.member.username;
+    const passowrd = state.member.password;
+
+    if(!username_format.test(username)){
+      alert("잘못된 아이디 형식입니다");
+      return;
+    }else if(!passowrd_format.test(passowrd)){
+      alert("잘못된 비밀번호 형식입니다");
+      return;
+    }
+       
+      
+    event.preventDefault();
+    const member = {
+        username : state.member.username,
+        password : state.member.password
+    }
+    MemberService.loginMember(member).then((res)=>{
+
+      const jwtToken = res.data;
+
+
+      const expiresInDays = 3;
+      
+      // js-cookie 라이브러리를 사용하여 JWT를 쿠키에 저장
+      Cookies.set('jwt', jwtToken, { path: '/', expires: expiresInDays });
+
+
+
+      setTimeout(() => goToLogin(), 100);
+    });
+
+    //console.log('다음으로 회원가입 중:', state.member);
   };
+
+    const goToLogin = () => {
+
+    navigate('/');       
+    };  
+
+
+
 
   return (
     <div>
@@ -18,8 +88,8 @@ const Login = () => {
           사용자 이름:
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={state.member.username}
+            onChange={changeUsernameHandler}
           />
         </label>
         <br />
@@ -27,12 +97,12 @@ const Login = () => {
           비밀번호:
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={state.member.password}
+            onChange={changePasswordHandler}
           />
         </label>
         <br />
-        <button type="button" onClick={handleLogin}>
+        <button type="submit" onClick={handleLogin}>
           로그인
         </button>
       </form>
@@ -45,4 +115,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginComponent;

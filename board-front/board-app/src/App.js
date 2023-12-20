@@ -13,11 +13,10 @@ import HeaderComponent from './components/public/HeaderComponent';
 import FooterComponent from './components/public/FooterComponent';
 import ReadBoardComponent from './components/ReadBoardComponent';
 import LoginComponent from './components/LoginComponent';
-import Signup from './components/SignupComponent';
 import SignupComponent from './components/SignupComponent';
 
 
-function App() {
+function App() { 
 
   const freeBoard = 'free';
   const questionBoard = 'question';

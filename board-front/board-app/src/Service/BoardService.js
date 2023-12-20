@@ -24,9 +24,6 @@ class BoardService {
         return axios.post(BOARD_API_BASE_URL, board);
     }
 
-    createMember(member) {
-        return axios.post(MEMBER_API_BASE_URL+"/addNewUser", member);
-    }
     updateCount(boardId){
         return axios.patch(BOARD_API_BASE_URL + '/' + boardId);
     }
