@@ -62,14 +62,18 @@ const LoginComponent = () => {
       const expiresInDays = 3;
       
       // js-cookie 라이브러리를 사용하여 JWT를 쿠키에 저장
-      Cookies.set('jwt', jwtToken, { path: '/', expires: expiresInDays });
-
+   
+      saveTokenToLocalStorage(jwtToken)
 
 
       setTimeout(() => goToLogin(), 100);
     });
 
     //console.log('다음으로 회원가입 중:', state.member);
+  };
+
+   const saveTokenToLocalStorage = (token) => {
+    localStorage.setItem('Authentication', token);
   };
 
     const goToLogin = () => {
