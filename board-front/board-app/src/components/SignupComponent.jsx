@@ -72,7 +72,7 @@ const changeEmailHandler = (event) => {
         password : state.member.password,
         email : state.member.email,
         // 기본적으로 USER 권한이며, 생략하면 null이라서 에러남. ㅋ
-        role : "USER"
+        roles : "USER"
     }
     MemberService.signMember(member).then((res)=>{
       goToSign();
