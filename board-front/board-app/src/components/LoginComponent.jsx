@@ -59,7 +59,7 @@ const LoginComponent = () => {
       const jwtToken = res.data;
 
 
-      const expiresInDays = 3;
+      // const expiresInDays = 3;
       
       // js-cookie 라이브러리를 사용하여 JWT를 쿠키에 저장
    
@@ -73,7 +73,7 @@ const LoginComponent = () => {
   };
 
    const saveTokenToLocalStorage = (token) => {
-    localStorage.setItem('Authentication', token);
+    localStorage.setItem('Authorization', token);
   };
 
     const goToLogin = () => {

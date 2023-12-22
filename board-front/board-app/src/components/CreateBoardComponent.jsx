@@ -19,7 +19,14 @@ function CreateBoardComponent(props) {
         }
     });
 
+    const jwtToken = localStorage.getItem('Authentication');
 
+    // 로그인 한사람만 게시글 작성 가능.
+    if(!jwtToken){
+        alert('로그인 해주십시요.')
+        setTimeout(() => navigate('/login'), 100);   
+        return;
+    }
 
 
     const handleChange = (event, field)=> {
@@ -64,6 +71,7 @@ function CreateBoardComponent(props) {
         else{
             contents = event;
         }
+        // 보기 이쁘게 줄바꿈해서 저장함.
         if (value.length % lineLength === 0 && value.length !== 0){
             contents += "\n";
 
