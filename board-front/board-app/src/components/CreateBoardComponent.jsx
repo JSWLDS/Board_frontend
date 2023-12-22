@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate } from 'react-router-dom';
 import TypeConverter from './static/js/TypeConverter';
@@ -64,7 +64,7 @@ function CreateBoardComponent(props) {
         else{
             contents = event;
         }
-        if (value.length % lineLength == 0 && value.length != 0){
+        if (value.length % lineLength === 0 && value.length !== 0){
             contents += "\n";
 
         }
