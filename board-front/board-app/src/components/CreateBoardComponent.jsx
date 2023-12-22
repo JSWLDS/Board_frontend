@@ -51,8 +51,9 @@ function CreateBoardComponent(props) {
 
     const changeContentsHandler = (event) => {
         const maxLength = 5000;
+        const lineLength = 71;
         const {value} = event.target;
-        let contents;
+        let contents="";
         if(value.length > maxLength){
             alert(`${maxLength}자 이하로 작성해주세요.`);
             // 현재는 state값이 아닌 textatrea의 value값을 가지고 온 것이다. state.contents.value의 값을 가지고 오면 에러가 난다. 
@@ -63,8 +64,14 @@ function CreateBoardComponent(props) {
         else{
             contents = event;
         }
+        if (value.length % lineLength == 0 && value.length != 0){
+            contents += "\n";
+
+        }
         handleChange(contents, "contents");
+
     };
+    
 
     const changeUserIdHandler = (event) => {
         handleChange(event, "userId");
