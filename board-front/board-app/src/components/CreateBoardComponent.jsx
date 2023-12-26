@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate } from 'react-router-dom';
 import TypeConverter from './static/js/TypeConverter';
@@ -6,7 +6,7 @@ import TypeConverter from './static/js/TypeConverter';
 
 function CreateBoardComponent(props) {
 
-        
+    
     const typeEng = props.type;
     let typeNo = TypeConverter.getType(typeEng)[0];
     const navigate = useNavigate();
@@ -16,18 +16,40 @@ function CreateBoardComponent(props) {
             title: '',
             contents: '',
             userId: ''
-        }
+        },
+        jwtToken: localStorage.getItem('Authorization') || ''
     });
 
-    const jwtToken = localStorage.getItem('Authentication');
 
-    // 로그인 한사람만 게시글 작성 가능.
-    if(!jwtToken){
-        alert('로그인 해주십시요.')
+    if(!state.jwtToken){
+        alert('로그인 해주십시오.')
         setTimeout(() => navigate('/login'), 100);   
         return;
     }
 
+
+
+    // useEffact를 사용하면 재로드 하기때문에 alert가 2번 실행된다. (가설)
+    // 주석화 하니 1번만 실행됨.    
+    // useEffect(()=>{
+    //     const newJwtToken = localStorage.getItem('Authorization') || state.jwtToken;
+
+
+  
+
+
+    //     setState((prevState)=>({...prevState, jwtToken: newJwtToken}))
+            
+
+        
+    // }, [state.jwtToken]);
+
+    // 로그인 한사람만 게시글 작성 가능.
+    // if(!state.jwtToken){
+    //     alert('로그인 해주십시요.')
+    //     setTimeout(() => navigate('/login'), 100);   
+    //     return;
+    // }
 
     const handleChange = (event, field)=> {
 

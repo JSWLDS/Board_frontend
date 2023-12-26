@@ -1,15 +1,43 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NavComponent from './NavComponent';
-class HeaderComponent extends Component {
-    constructor(props) {
-        super(props)
+import { useNavigate } from 'react-router-dom'; 
+function HeaderComponent(){
 
-        this.state = {
+    const navigate = useNavigate();
 
-        }
+    function login() {
+        navigate('/login');
+        return;
     }
-    
-    render() {
+
+    function logDiv(){
+        // const logDiv = document.getElementById('logDiv');
+        const jwtToken = localStorage.getItem('Authorization');
+        let returnTag;
+        if(!jwtToken) {
+            returnTag=(
+                <a onClick={login} className='login'>로그인</a>
+            );
+        }else {
+            returnTag=(
+                <a onClick={logout} className='logout'>로그아웃</a>
+            );
+        }
+        return returnTag;
+    }
+
+
+    function logout(){
+
+        localStorage.removeItem('Authorization');
+        alert('로그아웃 하였습니다!');
+        navigate('/')
+
+        return;
+    }
+
+
+
         return (
             <div>
                 <header>
@@ -22,15 +50,16 @@ class HeaderComponent extends Component {
                         <div>
                             
                         </div>
-                        <div>
-                            <a href="http://localhost:3000/login" className='login'>로그인</a>
+                        <div id='logDiv'>
+                            {logDiv()}
                         </div>
+                        
                     </div>
                 </header>
                   <NavComponent/>
             </div>
         );
-    }
 }
+
 
 export default HeaderComponent;

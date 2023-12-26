@@ -5,14 +5,24 @@ import MemberService from '../Service/MemberService'
 import Cookies from 'js-cookie';
 
 const LoginComponent = () => {
-
+  
+    const navigate = useNavigate();
     const [state, setState] = useState({
         member:{
             username : "",
             password : ""
-        }
+        },
+        jwtToken: localStorage.getItem('Authorization') || ''
     });
-    const navigate = useNavigate();
+    
+
+    if(state.jwtToken){
+        alert('이미 로그인 하셨습니다.')
+        setTimeout(() => navigate('/'), 100);   
+        return;
+    }
+
+
 
     const handleChange = (event, field)=> {
     

@@ -9,19 +9,36 @@ function ReadBoardComponent() {
 
     const [state, setState] = useState({
         board: {},
-        edited : ""
+        edited : "",
+        jwtToken: localStorage.getItem('Authorization') || ''
         });
 
 
     useEffect(() => {
+
+        const jwtToken =  localStorage.getItem('Authorization') || ''
         
+
         BoardService.getOneBoard(boardId).then( (res) => {
             setState({board: res.data});
         });
 
+        setState((prevState)=>({...prevState, jwtToken: jwtToken}))
+
     }, [boardId]);
 
-
+    jwtCheck(state.jwtToken);
+    
+    function jwtCheck(jwtToken) {
+        if(!jwtToken){
+            alert('로그인 해주십시오.')
+            // navigate('/login')
+            setTimeout(() => navigate('/login'), 100);   
+            return;
+        }
+    }
+ 
+    
     function returnBoardType(typeNo){
         let type = null;
         if (typeNo === 1) {
