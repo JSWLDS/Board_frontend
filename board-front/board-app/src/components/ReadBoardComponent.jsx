@@ -13,21 +13,17 @@ function ReadBoardComponent() {
         jwtToken: localStorage.getItem('Authorization') || ''
         });
 
-
+    jwtCheck(state.jwtToken);
+    
     useEffect(() => {
-
-        const jwtToken =  localStorage.getItem('Authorization') || ''
-        
 
         BoardService.getOneBoard(boardId).then( (res) => {
             setState({board: res.data});
         });
 
-        setState((prevState)=>({...prevState, jwtToken: jwtToken}))
-
     }, [boardId]);
 
-    jwtCheck(state.jwtToken);
+
     
     function jwtCheck(jwtToken) {
         if(!jwtToken){
