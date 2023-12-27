@@ -9,7 +9,7 @@ import './components/static/css/ReadBoardComponentStyle.css';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'; 
 import ListBoardComponent from './components/ListBoardComponent';
 import CreateBoardComponent from './components/CreateBoardComponent';
-import Main from './components/Main';
+import Main from './components/Main'; 
 import HeaderComponent from './components/public/HeaderComponent';
 import FooterComponent from './components/public/FooterComponent';
 import ReadBoardComponent from './components/ReadBoardComponent';
@@ -23,7 +23,7 @@ function App() {
 
   // let jwtToken = localStorage.getItem('Authorization') || '';
   // const jwtToken = useRef(localStorage.getItem('Authorization') || '');
-
+  const navigate = useNavigate();
 
   const menuList = ['free', 'question', 'all'];
 
@@ -38,9 +38,11 @@ function App() {
   }, [jwtToken]);
 
   
-  if(loginChecker.jwtCheck(jwtToken)){
-
-    return;
+  if (!jwtToken) {
+    alert('로그인 해주십시오.');
+    // navigate('/login')
+    setTimeout(() => navigate('/login'), 100);
+    return true;
   }
 
   

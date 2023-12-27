@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import BoardService from '../Service/BoardService';
 import TypeConverter from '../components/static/js/TypeConverter';
-import loginChecker from './static/js/LoginChecker';
-
 function ListBoardComponent(props) {
 
     const navigate = useNavigate(); 
@@ -41,10 +39,12 @@ function ListBoardComponent(props) {
     function readBoard(boardId){
 
 
-        if(loginChecker.jwtCheck(jwtToken)){
-
-            return;
-        }
+        if (!jwtToken) {
+            alert('로그인 해주십시오.');
+            // navigate('/login')
+            setTimeout(() => navigate('/login'), 100);
+            return true;
+          }
 
 
         BoardService.updateCount(boardId)
