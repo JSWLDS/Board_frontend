@@ -2,18 +2,20 @@ import React, { useState, useEffect } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate, useParams } from 'react-router-dom';
 import viewIcon from './public/img/icon-veiw.png';
-function ReadBoardComponent() {
+import loginChecker from './static/js/LoginChecker';
+
+function ReadBoardComponent(props) {
 
     const {boardId} = useParams();
     const navigate = useNavigate(); 
+    const jwtToken = props.jwt;
 
     const [state, setState] = useState({
         board: {},
-        edited : "",
-        jwtToken: localStorage.getItem('Authorization') || ''
+        edited : ""
         });
-
-    jwtCheck(state.jwtToken);
+    
+    // loginChecker.jwtCheck(jwtToken, navigate);
     
     useEffect(() => {
 
@@ -25,14 +27,7 @@ function ReadBoardComponent() {
 
 
     
-    function jwtCheck(jwtToken) {
-        if(!jwtToken){
-            alert('로그인 해주십시오.')
-            // navigate('/login')
-            setTimeout(() => navigate('/login'), 100);   
-            return;
-        }
-    }
+
  
     
     function returnBoardType(typeNo){

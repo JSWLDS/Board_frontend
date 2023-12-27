@@ -6,6 +6,7 @@ function HeaderComponent(){
     const navigate = useNavigate();
 
     function login() {
+        
         navigate('/login');
         return;
     }

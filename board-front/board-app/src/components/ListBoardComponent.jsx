@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import BoardService from '../Service/BoardService';
 import TypeConverter from '../components/static/js/TypeConverter';
+import loginChecker from './static/js/LoginChecker';
 
 function ListBoardComponent(props) {
 
@@ -12,8 +13,8 @@ function ListBoardComponent(props) {
         subjectEng : ""
     });
         
-        const boardType = props.type;
-
+    const boardType = props.type;
+    const jwtToken = props.jwt;
 
     useEffect(() => {
 
@@ -38,6 +39,14 @@ function ListBoardComponent(props) {
         navigate(`/create-board/${state.subjectEng}`);
     } 
     function readBoard(boardId){
+
+
+        if(loginChecker.jwtCheck(jwtToken)){
+
+            return;
+        }
+
+
         BoardService.updateCount(boardId)
         // 시간을 안 기다리고 바로 navigate를 실행하면 카운트가 안세진 숫자로 read에서 표시되는 경우가 있음.
         setTimeout(() =>   navigate(`/read-board/${boardId}`), 100);

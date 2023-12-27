@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate } from 'react-router-dom';
 import TypeConverter from './static/js/TypeConverter';
+import loginChecker from './static/js/LoginChecker';
 
 
 function CreateBoardComponent(props) {
@@ -10,6 +11,7 @@ function CreateBoardComponent(props) {
     const typeEng = props.type;
     let typeNo = TypeConverter.getType(typeEng)[0];
     const navigate = useNavigate();
+    const jwtToken = props.jwt;
     const [state, setState] = useState({
         board:{
             typeNo: typeEng === 'all'? 1 : typeNo ,
@@ -17,16 +19,11 @@ function CreateBoardComponent(props) {
             contents: '',
             userId: ''
         },
-        jwtToken: localStorage.getItem('Authorization') || ''
+        
     });
-
-
-    if(!state.jwtToken){
-        alert('로그인 해주십시오.')
-        setTimeout(() => navigate('/login'), 100);   
-        return;
-    }
-
+    useEffect(()=>{
+        
+    })
 
 
     // useEffact를 사용하면 재로드 하기때문에 alert가 2번 실행된다. (가설)

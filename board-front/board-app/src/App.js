@@ -2,6 +2,7 @@
 
 
 import './App.css';
+import React, { useEffect, useRef } from 'react';
 import './components/static/css/ListBoardComponentStyle.css';
 import './components/static/css/CreateBoardComponentStyle.css';
 import './components/static/css/ReadBoardComponentStyle.css';
@@ -14,14 +15,36 @@ import FooterComponent from './components/public/FooterComponent';
 import ReadBoardComponent from './components/ReadBoardComponent';
 import LoginComponent from './components/LoginComponent';
 import SignupComponent from './components/SignupComponent';
-
+import loginChecker from './components/static/js/LoginChecker';
+import { useNavigate } from 'react-router-dom'; 
 
 function App() { 
 
-  const freeBoard = 'free';
-  const questionBoard = 'question';
-  const allBoard = "all";
 
+  // let jwtToken = localStorage.getItem('Authorization') || '';
+  // const jwtToken = useRef(localStorage.getItem('Authorization') || '');
+
+
+  const menuList = ['free', 'question', 'all'];
+
+  const jwtToken = useRef(localStorage.getItem('Authorization') || '');
+
+  const updateJwtToken = () => {
+    jwtToken.current = localStorage.getItem('Authorization') || '';
+  };
+
+  useEffect(() => {
+    updateJwtToken();
+  }, [jwtToken]);
+
+  
+  if(loginChecker.jwtCheck(jwtToken)){
+
+    return;
+  }
+
+  
+  
   return (
     <div className='master-wrrap'>
       <Router>           
@@ -31,16 +54,14 @@ function App() {
             <Routes>       
               <Route path='/'  element = {<Main />}></Route>
 
-              <Route path='/list-board/free'  element = {<ListBoardComponent type={freeBoard} />}></Route>
-              <Route path='/list-board/question'  element = {<ListBoardComponent type={questionBoard} />}></Route>
-              <Route path='/list-board/all'  element = {<ListBoardComponent type={allBoard} />}></Route>
+              {menuList.map((type) => (
+                <React.Fragment key={type}>
+                  <Route path={`/list-board/${type}`} element={<ListBoardComponent type={type} jwt={jwtToken} />} />
+                  <Route path={`/create-board/${type}`} element={<CreateBoardComponent type={type} jwt={jwtToken} />} />
+                </React.Fragment>
+              ))}
 
-              <Route path='/create-board/free'  element = {<CreateBoardComponent type={freeBoard} />}></Route>
-              <Route path='/create-board/question'  element = {<CreateBoardComponent type={questionBoard} />}></Route>
-              <Route path='/create-board/all'  element = {<CreateBoardComponent type={allBoard} />}></Route>
-
-
-              <Route path='/read-board/:boardId'  element = {<ReadBoardComponent />}></Route>
+              <Route path='/read-board/:boardId'  element = {<ReadBoardComponent jwt={jwtToken} />}></Route>
               <Route path='/login'  element = {<LoginComponent />}></Route>
               <Route path='/signup'  element = {<SignupComponent />}></Route>
             </Routes>
