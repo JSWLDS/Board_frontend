@@ -4,19 +4,19 @@ import { Link } from 'react-router-dom'; // react-router-dom에서 Link 가져�
 import MemberService from '../Service/MemberService'
 import Cookies from 'js-cookie';
 
-const LoginComponent = () => {
+const LoginComponent = (props) => {
   
     const navigate = useNavigate();
     const [state, setState] = useState({
         member:{
             username : "",
             password : ""
-        },
-        jwtToken: localStorage.getItem('Authorization') || ''
+        }
     });
     
+    const jwtToken = props.jwt;
 
-    if(state.jwtToken){
+    if(jwtToken){
         alert('이미 로그인 하셨습니다.')
         setTimeout(() => navigate('/'), 100);   
         return;

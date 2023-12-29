@@ -12,12 +12,14 @@ function CreateBoardComponent(props) {
     let typeNo = TypeConverter.getType(typeEng)[0];
     const navigate = useNavigate();
     const jwtToken = props.jwt;
+
+
     const [state, setState] = useState({
         board:{
             typeNo: typeEng === 'all'? 1 : typeNo ,
             title: '',
             contents: '',
-            userId: ''
+            memberId: ''
         },
         
     });
@@ -42,11 +44,14 @@ function CreateBoardComponent(props) {
     // }, [state.jwtToken]);
 
     // 로그인 한사람만 게시글 작성 가능.
-    // if(!state.jwtToken){
-    //     alert('로그인 해주십시요.')
-    //     setTimeout(() => navigate('/login'), 100);   
-    //     return;
-    // }
+    if(!jwtToken){
+        alert('로그인 해주십시오.')
+        setTimeout(() => navigate('/login'), 100);   
+        return;
+    } else {
+        const memberInfo = BoardService.getMemberId(jwtToken);
+       
+    }
 
     const handleChange = (event, field)=> {
 
@@ -70,13 +75,20 @@ function CreateBoardComponent(props) {
         handleChange(event, "typeNo");
     
     };
+    const changeMemberId = (event) => {
+
+        handleChange(event, "memberId");
     
+    };
     const changeTitleHandler = (event) => {
         handleChange(event, "title");
     };
 
     const changeContentsHandler = (event) => {
+        // 게시글 최대 글자 수 설정.
         const maxLength = 5000;
+
+        // 깔끔한 UI를 위한 자동 줄바꿈 글자 수.
         const lineLength = 71;
         const {value} = event.target;
         let contents="";
@@ -98,11 +110,7 @@ function CreateBoardComponent(props) {
         handleChange(contents, "contents");
 
     };
-    
 
-    const changeUserIdHandler = (event) => {
-        handleChange(event, "userId");
-    };
 
     const createBoard = (event) => {
         event.preventDefault();
@@ -110,7 +118,7 @@ function CreateBoardComponent(props) {
             typeNo: Number(state.board.typeNo),
             title: state.board.title,
             contents: state.board.contents,
-            userId: state.board.userId
+            memberId: state.board.memberId
         };
         console.log(board)
 
@@ -182,16 +190,6 @@ function CreateBoardComponent(props) {
                                         className="create-contents board-font"
                                         value={state.board.contents}
                                         onChange={changeContentsHandler}
-                                    />
-                                </div>
-                                <div className="">
-                                    <label> UserId </label>
-                                    <input
-                                        placeholder="user_if"
-                                        name="user_id"
-                                        className="form-control"
-                                        value={state.board.userId}
-                                        onChange={changeUserIdHandler}
                                     />
                                 </div>
                                 <button className="btn-success" onClick={createBoard}>

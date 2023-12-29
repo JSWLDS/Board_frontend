@@ -26,6 +26,12 @@ function ReadBoardComponent(props) {
     }, [boardId]);
 
 
+    if(!jwtToken){
+        alert('로그인 해주십시요.')
+        setTimeout(() => navigate('/login'), 100);   
+        return;
+    }
+
     
 
  
@@ -102,11 +108,11 @@ function ReadBoardComponent(props) {
         )
     }
     
-    function returnUser(userId){
+    function returnUser(memberId){
         return (
            
             <div className = "read-userId">
-                <p>{userId} 님</p>
+                <p>{memberId} 님</p>
             </div>
         )
     }
@@ -124,7 +130,7 @@ function ReadBoardComponent(props) {
                         </div>
                         <div className='r_h_grid_2'>
                             <div className='temp-div_1 temp1_src1'>
-                                {returnUser(state.board.userId)}
+                                {returnUser(state.board.memberId)}
                                 <p>•</p>
                                 {returnDate(state.board.createdTime, state.board.updatedTime) } 
                             </div>

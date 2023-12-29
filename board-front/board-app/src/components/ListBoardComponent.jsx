@@ -36,6 +36,7 @@ function ListBoardComponent(props) {
     function createBoard(){
         navigate(`/create-board/${state.subjectEng}`);
     } 
+    
     function readBoard(boardId){
 
 

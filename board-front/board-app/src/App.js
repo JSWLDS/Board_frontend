@@ -6,7 +6,7 @@ import React, { useEffect, useRef } from 'react';
 import './components/static/css/ListBoardComponentStyle.css';
 import './components/static/css/CreateBoardComponentStyle.css';
 import './components/static/css/ReadBoardComponentStyle.css';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'; 
+import {BrowserRouter as Router, Route, Routes, useHref} from 'react-router-dom'; 
 import ListBoardComponent from './components/ListBoardComponent';
 import CreateBoardComponent from './components/CreateBoardComponent';
 import Main from './components/Main'; 
@@ -23,14 +23,14 @@ function App() {
 
   // let jwtToken = localStorage.getItem('Authorization') || '';
   // const jwtToken = useRef(localStorage.getItem('Authorization') || '');
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const menuList = ['free', 'question', 'all'];
 
-  const jwtToken = useRef(localStorage.getItem('Authorization') || '');
+  let jwtToken = (localStorage.getItem('Authorization') || '');
 
   const updateJwtToken = () => {
-    jwtToken.current = localStorage.getItem('Authorization') || '';
+    jwtToken = localStorage.getItem('Authorization') || '';
   };
 
   useEffect(() => {
@@ -38,13 +38,6 @@ function App() {
   }, [jwtToken]);
 
   
-  if (!jwtToken) {
-    alert('로그인 해주십시오.');
-    // navigate('/login')
-    setTimeout(() => navigate('/login'), 100);
-    return true;
-  }
-
   
   
   return (
