@@ -33,10 +33,7 @@ class BoardService {
         console.log(boardId+" getOneBoard입니다")
         return axiosWithAuth().get(BOARD_API_BASE_URL + '/' + boardId);
     }
-    
-    getMemberId(jwt){
-        return axiosWithAuth().get(BOARD_API_BASE_URL+'/getMemberId/'+ jwt)
-    }
+
 }
 
 const boardService =  new BoardService();

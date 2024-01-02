@@ -12,6 +12,12 @@ class MemberService {
     loginMember(member) {
         return axiosWithAuth().post(MEMBER_API_BASE_URL+"/login", member)
     }
+        
+    getMemberId(jwt){
+        console.log('Sending JWT:', jwt);
+  
+        return axiosWithAuth().get(MEMBER_API_BASE_URL+'/getMemberId/'+ jwt)
+    }
 }
 
 const memberService =  new MemberService();

@@ -12,22 +12,17 @@ function CreateBoardComponent(props) {
     let typeNo = TypeConverter.getType(typeEng)[0];
     const navigate = useNavigate();
     const jwtToken = props.jwt;
-
-
+    const memberId = props.memberId;
     const [state, setState] = useState({
         board:{
             typeNo: typeEng === 'all'? 1 : typeNo ,
             title: '',
-            contents: '',
-            memberId: ''
+            contents: ''
+
         },
         
     });
-    useEffect(()=>{
         
-    })
-
-
     // useEffact를 사용하면 재로드 하기때문에 alert가 2번 실행된다. (가설)
     // 주석화 하니 1번만 실행됨.    
     // useEffect(()=>{
@@ -49,9 +44,12 @@ function CreateBoardComponent(props) {
         setTimeout(() => navigate('/login'), 100);   
         return;
     } else {
-        const memberInfo = BoardService.getMemberId(jwtToken);
-       
+
     }
+
+
+    
+
 
     const handleChange = (event, field)=> {
 
@@ -73,11 +71,6 @@ function CreateBoardComponent(props) {
     const changeTypeHandler = (event) => {
 
         handleChange(event, "typeNo");
-    
-    };
-    const changeMemberId = (event) => {
-
-        handleChange(event, "memberId");
     
     };
     const changeTitleHandler = (event) => {
@@ -118,9 +111,10 @@ function CreateBoardComponent(props) {
             typeNo: Number(state.board.typeNo),
             title: state.board.title,
             contents: state.board.contents,
-            memberId: state.board.memberId
+            memberId: memberId.data
         };
-        console.log(board)
+        // console.log("----------------------------"+memberId)
+        // console.log(memberId.data)
 
         BoardService.createBoard(board).then((res) => {
             goToBoard();

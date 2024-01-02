@@ -64,7 +64,7 @@ function ListBoardComponent(props) {
             <tr key={board.boardId}>
                 <td>{board.boardId}</td>
                 <td onClick={()=> {readBoard(board.boardId)}}>{board.title}</td>
-                <td>{board.userId}</td>
+                <td>{board.member}</td>
                 <td>{TypeConverter.getType(board.typeNo)[1]}</td>
                 <td>{board.createdTime}</td>
                 <td>{board.updatedTime}</td>
