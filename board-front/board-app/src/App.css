@@ -18,3 +18,17 @@ a{
 .board-font {
   font-family: 'Noto Sans KR', sans-serif;
 }
+.main{
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+/* .main_img{
+  width: 50vw;
+  height: 70vh;
+  background: url('./components/public/img/coala.png'); 
+  background-size: cover;
+  margin: 20px;
+} */
