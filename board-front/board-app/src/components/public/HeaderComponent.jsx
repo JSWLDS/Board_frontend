@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavComponent from './NavComponent';
 import { useNavigate } from 'react-router-dom'; 
+import memberService from '../../Service/MemberService';
 function HeaderComponent(){
 
     const navigate = useNavigate();
@@ -10,12 +11,15 @@ function HeaderComponent(){
         navigate('/login');
         return;
     }
+    let jwtTokenExpired = (localStorage.getItem('Authorization'));
+
+    // memberService.isTokenExpired
 
     function logDiv(){
         // const logDiv = document.getElementById('logDiv');
-        const jwtToken = localStorage.getItem('Authorization');
+        
         let returnTag;
-        if(!jwtToken) {
+        if(!jwtTokenExpired) {
             returnTag=(
                 <a onClick={login} className='login'>로그인</a>
             );

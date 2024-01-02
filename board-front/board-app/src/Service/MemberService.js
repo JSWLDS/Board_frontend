@@ -18,6 +18,15 @@ class MemberService {
   
         return axiosWithAuth().get(MEMBER_API_BASE_URL+'/getMemberId/'+ jwt)
     }
+
+    getBoardCreater(boardId) {
+        return axiosWithAuth().get(MEMBER_API_BASE_URL + '/getNickname/' + boardId);
+    }
+
+    isTokenExpired(jwt){
+  
+        return axiosWithAuth().get(MEMBER_API_BASE_URL+'/isTokenExpired/'+ jwt)
+    }
 }
 
 const memberService =  new MemberService();

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate } from 'react-router-dom';
 import TypeConverter from './static/js/TypeConverter';
-import loginChecker from './static/js/LoginChecker';
+
 
 
 function CreateBoardComponent(props) {

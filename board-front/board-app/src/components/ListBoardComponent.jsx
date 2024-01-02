@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import BoardService from '../Service/BoardService';
 import TypeConverter from '../components/static/js/TypeConverter';
+import memberService from '../Service/MemberService';
 function ListBoardComponent(props) {
 
     const navigate = useNavigate(); 
@@ -57,6 +58,23 @@ function ListBoardComponent(props) {
         const boardTypeName = state.subjectKor;
         return boardTypeName;
     }
+    // 닉네임 미구현.
+    // function getNickname(memberId){
+    //     try {
+    //         const memberID = Number(memberId);
+            
+    //         const response = memberService.getBoardCreater(memberID);
+    //         const data = response.data;
+
+    //         console.log(response)
+    //         return data;
+
+
+    //     } catch (error) {
+    //         console.error("닉네임을 가져오는 동안 오류 발생:", error);
+    //         // 오류 처리를 수행합니다. 필요에 따라 수정하세요.
+    //     }
+    // }
 
     function getAllTypeBoards(){  
         return (
@@ -64,7 +82,7 @@ function ListBoardComponent(props) {
             <tr key={board.boardId}>
                 <td>{board.boardId}</td>
                 <td onClick={()=> {readBoard(board.boardId)}}>{board.title}</td>
-                <td>{board.member}</td>
+                <td>{board.memberId|| 'NaN'}</td>
                 <td>{TypeConverter.getType(board.typeNo)[1]}</td>
                 <td>{board.createdTime}</td>
                 <td>{board.updatedTime}</td>

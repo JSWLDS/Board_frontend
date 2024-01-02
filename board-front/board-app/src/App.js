@@ -17,7 +17,7 @@ import ReadBoardComponent from './components/ReadBoardComponent';
 import LoginComponent from './components/LoginComponent';
 import SignupComponent from './components/SignupComponent';
 import MemberService from './Service/MemberService';
-import loginChecker from './components/static/js/LoginChecker';
+
 import { useNavigate } from 'react-router-dom'; 
 
 function App() { 
@@ -25,22 +25,31 @@ function App() {
 
   // let jwtToken = localStorage.getItem('Authorization') || '';
   // const jwtToken = useRef(localStorage.getItem('Authorization') || '');
-  // const navigate = useNavigate();
-
 
 
 
   const menuList = ['free', 'question', 'all'];
 
-  let jwtToken = (localStorage.getItem('Authorization') || '');
 
+  let jwtToken = localStorage.getItem('Authorization') || '';
+
+  // const updateJwtToken = () => {
+
+  //   if(!MemberService.isTokenExpired(localStorage.getItem('Authorization'))){
+      
+  //   }
+
+  //   return localStorage.getItem('Authorization') || '';
+  // };
   const updateJwtToken = () => {
-    return jwtToken = localStorage.getItem('Authorization') || '';
-  };
 
+    return localStorage.getItem('Authorization') || '';
+  }
+
+  
   const [state, setState] = useState({
     memberId: 0,
-    jwtToken: localStorage.getItem('Authorization') || ''
+    jwtToken: updateJwtToken()
   });
   
   useEffect(() => {
@@ -61,8 +70,9 @@ function App() {
   
   
   return (
-    <div className='master-wrrap'>
-      <Router>           
+    <Router>           
+     <div className='master-wrrap'>
+   
         <HeaderComponent/> 
         <div className='container'>
           <section>
@@ -83,8 +93,9 @@ function App() {
           </section>
         </div>
         <FooterComponent /> 
-      </Router>
-    </div>
+    
+      </div>
+    </Router>
   );
 }
 

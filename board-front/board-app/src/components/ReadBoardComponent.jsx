@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import BoardService from '../Service/BoardService';
 import { useNavigate, useParams } from 'react-router-dom';
 import viewIcon from './public/img/icon-veiw.png';
-import loginChecker from './static/js/LoginChecker';
+import memberService from '../Service/MemberService';
+
 
 function ReadBoardComponent(props) {
 
@@ -33,7 +34,13 @@ function ReadBoardComponent(props) {
     }
 
     
-
+    function getNickname(memberId){
+        const nickname = memberService.getBoardCreater(memberId).then(response  => {
+            console.log(response.data)
+            return response.data;
+        })
+        return nickname;
+    }
  
     
     function returnBoardType(typeNo){
@@ -108,6 +115,7 @@ function ReadBoardComponent(props) {
         )
     }
     
+    // nickname 구현 못함.
     function returnUser(memberId){
         return (
            

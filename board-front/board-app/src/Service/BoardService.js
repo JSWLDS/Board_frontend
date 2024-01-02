@@ -1,8 +1,6 @@
 import axios from 'axios'; 
 import axiosWithAuth from './AxiosSetHeaderService';
 
-const API_BASE_URL ="http://localhost:8080/api/v1";
-const MEMBER_API_BASE_URL ="http://localhost:8080/auth";
 const BOARD_API_BASE_URL = "http://localhost:8080/api/v1/board"; 
 
 class BoardService {
