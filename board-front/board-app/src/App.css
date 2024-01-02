@@ -24,6 +24,8 @@ a{
   align-items: center;
   justify-content: center;
   text-align: center;
+  font-size: 3rem;
+  /* font-weight: 700; */
 }
 /* .main_img{
   width: 50vw;
